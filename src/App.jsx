@@ -1,89 +1,122 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState } from 'react';
 
 function App() {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [contact, setContact] = useState('')
-  const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [contact, setContact] = useState('');
+  const [email, setEmail] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessages, setErrorMessages] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    contact: '',
+  });
 
-  const [firstNameError, setFirstNameError] = useState(false)
-  const [lastNameError, setLastNameError] = useState(false)
-  const [contactError, setContactError] = useState(false)
-  const [emailError, setEmailError] = useState(false)
-  const [error , setError] = useState(false)
-  const [formAttempted, setFormAttempted] = useState(false)
-
-  const HandleOnChange = e => {
-    if (e.target.name === "firstName") {
-      setFirstName(e.target.value)
-      setFirstNameError(false)
+  const HandleOnChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'firstName') {
+      setFirstName(value);
+    } else if (name === 'lastName') {
+      setLastName(value);
+    } else if (name === 'Contact') {
+      setContact(value);
+    } else {
+      setEmail(value);
     }
-   if (e.target.name === "lastName") {
-      setLastName(e.target.value)
-      setLastNameError(false)
-    }
-    if (e.target.name === "Contact") {
-      setContact(e.target.value)
-      setContactError(false)
-    }
-    else {
-      setEmail(e.target.value)
-      setEmailError(false)
-    }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormAttempted(true)
+    const errors = {};
+
     if (firstName === '') {
-      setFirstNameError(true)
+      errors.firstName = 'First name is required';
     }
     if (lastName === '') {
-      setLastNameError(true)
+      errors.lastName = 'Last name is required';
     }
     if (email === '') {
-      setEmailError(true)
+      errors.email = 'Email is required';
     }
     if (contact === '') {
-      setContactError(true)
+      errors.contact = 'Contact is required';
+    } else if (contact.length !== 10) {
+      errors.contact = 'Characters must be of 10 digits';
     }
-  }
 
-  useEffect(() => {
-    if (firstNameError || lastNameError || contactError || emailError) {
-      setError(true)
+    if (Object.keys(errors).length === 0) {
+      setSuccessMessage('Registration Successful!!');
+      setErrorMessages({
+        firstName: '',
+        lastName: '',
+        email: '',
+        contact: '',
+      });
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setContact('');
     } else {
-      setError(false)
+      setSuccessMessage('');
+      setErrorMessages(errors);
     }
-  }, [firstNameError, lastNameError, contactError, emailError])
+  };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className='bod'>
-        {formAttempted && !error && <p className='success'>Registration Successful!!</p>}
+    <div className='bod'>
+      <form onSubmit={handleSubmit}>
+        <p className='success'>{successMessage}</p>
         <div className='input'>
-          <input type="text" placeholder='First Name' onChange={HandleOnChange} name="firstName" className='field' />
-          {firstNameError && <span>Please enter your first name</span>}
+          <input
+            className='value'
+            type='text'
+            placeholder='First Name'
+            onChange={HandleOnChange}
+            name='firstName'
+            value={firstName}
+          />
+          <span>{errorMessages.firstName}</span>
         </div>
         <div className='input'>
-          <input type="text" placeholder='Last name' name='lastName' onChange={HandleOnChange} className='field' />
-          {lastNameError && <span>Please enter your last name</span>}
+          <input
+            className='value'
+            type='text'
+            placeholder='Last name'
+            name='lastName'
+            onChange={HandleOnChange}
+            value={lastName}
+          />
+          <span>{errorMessages.lastName}</span>
         </div>
         <div className='input'>
-          <input type="email" placeholder='Email' name='Email' onChange={HandleOnChange} className='field' />
-          {emailError && <span>Please enter your email name</span>}
+          <input
+            className='value'
+            type='email'
+            placeholder='Email'
+            name='Email'
+            onChange={HandleOnChange}
+            value={email}
+          />
+          <span>{errorMessages.email}</span>
         </div>
         <div className='input'>
-          <input type="number" placeholder='Contact' name='Contact' onChange={HandleOnChange} className='field' />
-          {contactError && <span>Please enter your Contact number</span>}
+          <input
+            className='value'
+            type='number'
+            placeholder='Contact'
+            name='Contact'
+            onChange={HandleOnChange}
+            value={contact}
+          />
+          <span>{errorMessages.contact}</span>
         </div>
         <div>
-          <button type='submit'>Register</button>
+          <button type='submit'>Submit</button>
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default App
-
+export default App;
