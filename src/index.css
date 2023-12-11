@@ -1,0 +1,44 @@
+button{
+    padding: 1vh 2vh;
+    width: 50%;
+    background-color: rgb(65,164,69);
+    color: white;
+    cursor: pointer;
+}
+.field{
+    /* margin-bottom: 2vh; */
+    height: 4vh;
+    /* width: 12vh; */
+}
+.bod{
+    background-color: rgb(253,251,253);
+    width:20%;
+    height: max-content;
+    /* text-align: center; */
+    margin: auto auto auto auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+body{
+    background-color: rgb(139,136,138);
+    margin: 0;
+    padding: 0;
+}
+.input{
+    display: flex;
+    flex-direction: column;
+     margin-bottom: 2vh;
+}
+span{
+    color: red;
+}
+.success{
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(53,123,247);
+}
+.success{
+    font-size: 3vh;
+}
