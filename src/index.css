@@ -1,6 +1,9 @@
+*{
+    font-size: 3vh;
+}
 button{
     padding: 1vh 2vh;
-    width: 50%;
+    width: 100%;
     background-color: rgb(65,164,69);
     color: white;
     cursor: pointer;
@@ -38,7 +41,11 @@ span{
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: rgb(53,123,247);
+    font-size: 4vh;
 }
 .success{
     font-size: 3vh;
+}
+.value{
+    font-size: 4vh;
 }
